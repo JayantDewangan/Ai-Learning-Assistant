@@ -41,9 +41,8 @@ connectDB();
 app.use(
     cors({
         origin: [
-            "http://localhost:5173",  // Local development
-            "https://ai-learning-backend-4w9l.onrender.com",  // Your own backend
-            "https://your-frontend-domain.onrender.com"  // ← Add your actual frontend URL here
+          "http://localhost:5173", // local frontend
+          "https://ai-learning-frontend-4w9l.onrender.com" // deployed frontend
         ],
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type", "Authorization"],
