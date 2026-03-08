@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-display: "Urbanist", sans-serif;
+  --breakpoint-3xl: 1920px;  /* adds a custom breakpoint at 1920px */
+  --color-primary: #FF9324; /* sets the primary brand color to orange (#FF9324) */
+}
+
+@layer base{
+  html{
+    font-family: var(--font-display);  /* - Applies the Urbanist font globally to the <html> element */
+  }
+  body{
+    background-color: #fcfbfc; /* - Sets the body background color to a very light off‑white (#fcfbfc) */
+  }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
