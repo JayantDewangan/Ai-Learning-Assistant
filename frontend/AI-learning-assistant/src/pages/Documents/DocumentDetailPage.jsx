@@ -499,7 +499,7 @@ const DocumentDetailPage = () => {
                           {/* ✅ FIXED: was quiz._id, now set._id and setDeleteSetId */}
                           <button
                             onClick={(e) => { e.stopPropagation(); setDeleteSetId(set._id); }}
-                            className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors opacity-0 group-hover:opacity-100"
+                            className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors opacity-100 lg:opacity-0 lg:group-hover:opacity-100"
                           >
                             <Trash2 className="w-4 h-4" strokeWidth={2} />
                           </button>
@@ -572,7 +572,7 @@ const DocumentDetailPage = () => {
                             {/* ✅ FIXED: was handleDeleteQuiz(quiz._id), now setDeleteQuizId(quiz._id) */}
                             <button
                               onClick={(e) => { e.stopPropagation(); setDeleteQuizId(quiz._id); }}
-                              className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors opacity-0 group-hover:opacity-100"
+                              className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors opacity-100 lg:opacity-0 lg:group-hover:opacity-100"
                             >
                               <Trash2 className="w-4 h-4" strokeWidth={2} />
                             </button>

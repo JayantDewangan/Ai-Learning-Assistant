@@ -206,7 +206,7 @@ const DocumentListPage = () => {
                 {/* Delete Button */}
                 <button
                   onClick={(e) => handleDelete(doc._id, doc.title, e)}
-                  className="absolute top-3 right-3 p-1.5 rounded-lg bg-white text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity hover:text-red-500 hover:bg-red-50 border border-slate-200"
+                  className="absolute top-3 right-3 p-1.5 rounded-lg bg-white text-slate-400 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity hover:text-red-500 hover:bg-red-50 border border-slate-200"
                 >
                   <Trash2 className="w-4 h-4" strokeWidth={2} />
                 </button>
@@ -333,7 +333,10 @@ const DocumentListPage = () => {
                 ) : (
                   <div className="border-2 border-indigo-500 rounded-xl p-6 text-center bg-indigo-50">
                     <FileText className="w-12 h-12 text-indigo-500 mx-auto mb-2" strokeWidth={1.5} />
-                    <p className="text-sm font-semibold text-indigo-700 mb-1">
+                    <p
+                      title={selectedFile.name}
+                      className="text-sm font-semibold text-indigo-700 mb-1 line-clamp-2 break-all"
+                    >
                       {selectedFile.name}
                     </p>
                     <p className="text-xs text-indigo-600">

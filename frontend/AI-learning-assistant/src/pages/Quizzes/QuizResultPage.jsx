@@ -34,11 +34,10 @@ const QuizResultPage = () => {
 
   if (!result) return null;
 
-
   const quiz = result.quiz;
   const detailedResults = result.results || [];
   const total = quiz?.totalQuestions || 0;
-  const pct = quiz?.score ?? 0;  // score is already percentage
+  const pct = quiz?.score ?? 0;
   const correct = Math.round((pct / 100) * total);
   const incorrect = total - correct;
   const documentId = quiz?.document?._id || quiz?.document;
@@ -59,7 +58,6 @@ const QuizResultPage = () => {
     <div className="h-full overflow-y-auto bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
 
-        {/* Back */}
         <button
           onClick={() => navigate(`/documents/${documentId}`)}
           className="flex items-center gap-2 text-slate-500 hover:text-slate-800 mb-8 text-sm font-medium transition-colors"
@@ -104,8 +102,9 @@ const QuizResultPage = () => {
         <div className="space-y-4 mb-10">
           {detailedResults.map((q, i) => {
             const userAnswer = q.selectedAnswer;
-            const cleanedCorrect = q.correctAnswer.replace(/^O\d+:\s*/, '');
-            const isCorrect = userAnswer === cleanedCorrect;
+            const correctAnswer = q.correctAnswer;
+            const isCorrect = q.isCorrect;
+
             return (
               <div key={i} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
                 <div className="flex items-start justify-between gap-3 mb-4">
@@ -124,38 +123,46 @@ const QuizResultPage = () => {
 
                 <p className="text-slate-900 font-semibold mb-4 leading-relaxed">{q.question}</p>
 
-                <div className="space-y-2 mb-4">
+               <div className="space-y-2 mb-4">
                   {q.options.map((opt, oi) => {
+                    const normalizeStr = (str) =>
+                      (str || '')
+                        .toString()
+                        .trim()
+                        .toLowerCase()
+                        .replace(/\s+/g, ' ');
+                    
                     const isUserAnswer = opt === userAnswer;
-                    const cleanedCorrect = q.correctAnswer.replace(/^O\d+:\s*/, '');
-                    const isCorrectAnswer = opt === cleanedCorrect;
+                    const isCorrectAnswer = opt === correctAnswer;
+
                     let cls = 'border-slate-200 bg-white text-slate-700';
                     let badge = null;
-                    if (isCorrectAnswer) {
+
+                    if (opt === userAnswer && isCorrect) {
                       cls = 'border-emerald-400 bg-emerald-50 text-emerald-900';
-
-                      if (isUserAnswer) {
-                        badge = (
-                          <span className="ml-auto text-xs font-semibold text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-lg flex items-center gap-1 shrink-0">
-                            <CheckCircle2 className="w-3 h-3" />Your Answer
-                          </span>
-                        );
-                      } else {
-                        badge = (
-                          <span className="ml-auto text-xs font-semibold text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-lg flex items-center gap-1 shrink-0">
-                            <CheckCircle2 className="w-3 h-3" />Correct
-                          </span>
-                        );
-                      }
-
-                    } else if (isUserAnswer) {
+                      badge = (
+                        <span className="ml-auto text-xs font-semibold text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-lg flex items-center gap-1">
+                          <CheckCircle2 className="w-3 h-3" />Your Answer
+                        </span>
+                      );
+                    }
+                    else if (opt === correctAnswer) {
+                      cls = 'border-emerald-400 bg-emerald-50 text-emerald-900';
+                      badge = (
+                        <span className="ml-auto text-xs font-semibold text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-lg flex items-center gap-1">
+                          <CheckCircle2 className="w-3 h-3" />Correct
+                        </span>
+                      );
+                    }
+                    else if (opt === userAnswer && !isCorrect) {
                       cls = 'border-red-400 bg-red-50 text-red-900';
                       badge = (
-                        <span className="ml-auto text-xs font-semibold text-red-600 bg-red-100 px-2 py-0.5 rounded-lg flex items-center gap-1 shrink-0">
+                        <span className="ml-auto text-xs font-semibold text-red-600 bg-red-100 px-2 py-0.5 rounded-lg flex items-center gap-1">
                           <XCircle className="w-3 h-3" />Your Answer
                         </span>
                       );
                     }
+
                     return (
                       <div key={oi} className={`flex items-center gap-3 px-4 py-3 rounded-xl border-2 text-sm font-medium ${cls}`}>
                         <span className="flex-1">{opt}</span>

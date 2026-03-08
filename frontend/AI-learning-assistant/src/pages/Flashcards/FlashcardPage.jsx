@@ -145,11 +145,11 @@ const FlashcardPage = () => {
           }}
         >
           <div
-            className="relative w-full transition-transform duration-500"
+            className="relative w-full transition-transform duration-500 flex flex-col"
             style={{
               transformStyle: 'preserve-3d',
               transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-              minHeight: '280px',
+              minHeight: '320px',
             }}
           >
             {/* Front — answer */}
@@ -170,9 +170,9 @@ const FlashcardPage = () => {
               >
                 <Star className="w-4 h-4" fill={currentCard?.isStarred ? 'currentColor' : 'none'} strokeWidth={2} />
               </button>
-              <p className="text-white text-xl font-semibold text-center leading-relaxed">
-                {currentCard?.question}
-              </p>
+                <p className="text-white text-xl font-semibold text-center  leading-relaxed wrap-break-word overflow-y-auto max-h-55 px-2">
+                  {currentCard?.question}
+                </p>
               <div className="flex items-center gap-1.5 mt-6 text-white/70 text-xs">
                 <RotateCcw className="w-3.5 h-3.5" strokeWidth={2} />
                 Click to see answer
@@ -197,7 +197,7 @@ const FlashcardPage = () => {
               >
                 <Star className="w-4 h-4" fill={currentCard?.isStarred ? 'currentColor' : 'none'} strokeWidth={2} />
               </button>
-              <p className="text-slate-800 text-xl font-semibold text-center leading-relaxed">
+              <p className="text-slate-800 text-xl font-semibold text-center leading-relaxed wrap-break-word overflow-y-auto max-h-55 px-2">
                 {currentCard?.answer}
               </p>
               <div className="flex items-center gap-1.5 mt-6 text-slate-400 text-xs">

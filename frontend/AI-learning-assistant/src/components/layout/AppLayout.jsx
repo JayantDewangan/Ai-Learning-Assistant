@@ -23,6 +23,7 @@ const AppLayout = () => {
   const [showNotifications, setShowNotifications] = useState(false); 
   const [recentActivity, setRecentActivity] = useState([]);  
   const [loadingActivity, setLoadingActivity] = useState(false);
+  const [hasActivity, setHasActivity] = useState(false);
 
   const navItems = [
     { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
@@ -47,7 +48,9 @@ useEffect(() => {
     setLoadingActivity(true);
     try {
       const data = await progressService.getDashboardData();
-      setRecentActivity(data?.data?.recentActivity?.documents || []);
+      const activities = data?.data?.recentActivity?.documents || [];
+      setRecentActivity(activities);
+      if (activities.length > 0) setHasActivity(true);
     } catch (error) {
       console.error('Failed to load activity');
     } finally {
@@ -163,7 +166,7 @@ useEffect(() => {
                 className="relative p-2 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer"
               >
                 <Bell className="w-5 h-5 text-slate-500" strokeWidth={2} />
-                {recentActivity.length > 0 && (
+                {hasActivity && (
                   <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-indigo-500 rounded-full" />
                 )}
               </button>
@@ -181,7 +184,7 @@ useEffect(() => {
                   </div>
 
                   {/* Content */}
-                  <div className="overflow-y-auto flex-1">
+                  <div className="overflow-y-auto" style={{ maxHeight: '260px' }}>
                     {loadingActivity ? (
                       <div className="flex items-center justify-center py-8">
                         <div className="w-6 h-6 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />

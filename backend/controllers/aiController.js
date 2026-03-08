@@ -141,7 +141,7 @@ export const chat = async (req, res, next) => {
         const relevantChunks = findRelevantChunks(document.chunks, question, 3);
         const chunkIndices = relevantChunks.map(c => c.chunkIndex);
 
-        // ✅ Fallback to full text if no chunks
+        // Fallback to full text if no chunks
         const contextForAI = relevantChunks.length > 0
             ? relevantChunks
             : [{ content: document.extractedText?.substring(0, 5000) || '', chunkIndex: 0 }];
@@ -174,7 +174,7 @@ export const chat = async (req, res, next) => {
             message: 'Response generated successfully'
         });
     } catch (error) {
-        console.error('chat error:', error); // ✅
+        console.error('chat error:', error); 
         next(error);
     }
 };
@@ -197,14 +197,13 @@ export const explainConcept = async (req, res, next) => {
             return res.status(404).json({ success: false, error: 'Document not found or not ready', statusCode: 404 });
         }
 
-        // ✅ ADD THESE DEBUG LOGS
         console.log('Document found:', document.title);
         console.log('Chunks count:', document.chunks?.length);
         console.log('ExtractedText length:', document.extractedText?.length);
 
         const relevantChunks = findRelevantChunks(document.chunks, concept, 3);
         
-        // ✅ If no relevant chunks found, fall back to extractedText directly
+        // If no relevant chunks found, fall back to extractedText directly
         const context = relevantChunks.length > 0
             ? relevantChunks.map(c => c.content).join('\n\n')
             : document.extractedText?.substring(0, 5000) || '';
