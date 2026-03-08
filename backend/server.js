@@ -40,7 +40,11 @@ connectDB();
 // Middleware to handle CORS : allow specific origin
 app.use(
     cors({
-        origin: "*", // This means any domain can make requests to our API.
+        origin: [
+            "http://localhost:5173",  // Local development
+            "https://ai-learning-backend-4w9l.onrender.com",  // Your own backend
+            "https://your-frontend-domain.onrender.com"  // ← Add your actual frontend URL here
+        ],
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type", "Authorization"],
         credentials: true
